@@ -1,0 +1,25 @@
+{
+  "name": "georgie",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gshaheen/georgie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gshaheen/georgie/issues"
+  },
+  "homepage": "https://github.com/gshaheen/georgie#readme",
+  "dependencies": {
+    "commander": "^8.2.0",
+    "node-fetch": "^3.0.0"
+  }
+}
