@@ -23,6 +23,7 @@
   "homepage": "https://github.com/gshaheen/georgie#readme",
   "dependencies": {
     "commander": "^8.2.0",
-    "node-fetch": "^3.0.0"
+    "node-fetch": "^3.0.0",
+    "web3": "^1.6.0"
   }
 }
