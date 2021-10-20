@@ -6,7 +6,7 @@ import comments from "./commands/comments.js";
 import users from "./commands/users.js";
 import getBalance from "./commands/getBalance.js";
 
-cli.description("Access the JSON Placeholder API");
+cli.description("query ethereum");
 cli.name("georgie");
 cli.usage("<command>");
 cli.addHelpCommand(false);

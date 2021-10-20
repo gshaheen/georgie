@@ -1,12 +1,15 @@
-import Web3 from "web3";
-import fetch from "node-fetch";
+import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 
 export default (address, options) => {
-    //var Web3 = require('web3');
-    var web3 = new Web3("https://eth-mainnet.alchemyapi.io/v2/t6xJw7aHQF5AymDZktnp1UdyZbUztX6A");
+  //add check & prompt for API key, add prompt for network
+  const PROVIDER_URL = "https://eth-mainnet.alchemyapi.io/v2/t6xJw7aHQF5AymDZktnp1UdyZbUztX6A";
+  const web3 = createAlchemyWeb3(PROVIDER_URL);
+  console.log(PROVIDER_URL);
 
-    async function getBalance () {
+  async function getBalance () {
+      try { 
         const data = await web3.eth.getBalance(address);
+        
         var strData = data.toString();
         var ether = web3.utils.fromWei(strData, 'ether');
         console.log(ether);
@@ -16,6 +19,9 @@ export default (address, options) => {
         }
     
         return console.log(JSON.stringify(data));
-      };
-    getBalance();
+      } catch (error) { 
+        return console.log(error.name + ": " + error.message);
+      }
+    };
+  getBalance();
 };
