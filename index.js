@@ -1,10 +1,22 @@
 #!/usr/bin/env node
 
 import cli from "commander";
+import inquirer from "inquirer";
 import posts from "./commands/posts.js";
 import comments from "./commands/comments.js";
 import users from "./commands/users.js";
 import getBalance from "./commands/getBalance.js";
+import Enquirer from "enquirer";
+
+//global variables
+//global.API_KEY = "t6xJw7aHQF5AymDZktnp1UdyZbUztX6A";
+global.API_KEY = "";
+global.PROVIDER_MAINNET = "https://eth-mainnet.alchemyapi.io/v2/";
+global.PROVIDER_GOERLI = "https://eth-goerli.alchemyapi.io/v2/";
+global.PROVIDER_KOVAN = "https://eth-kovan.alchemyapi.io/v2/";
+global.PROVIDER_RINKEBY = "https://eth-rinkeby.alchemyapi.io/v2/";
+global.PROVIDER_ROPSTEN = "https://eth-ropsten.alchemyapi.io/v2/";
+global.PROVIDER_URL = "";
 
 cli.description("query ethereum");
 cli.name("georgie");
@@ -43,6 +55,48 @@ cli
   .description(
     "Retrieve the balance of an ethereum address."
   )
-  .action(getBalance);
+  .action(getBalance); 
 
-cli.parse(process.argv);
+ 
+
+  if (!API_KEY){
+    console.log("If you don't already have an API key, get one here: https://alchemy.com/?r=3d90611b34ed2439");
+    inquirer.prompt([
+      {
+        name: 'network',
+        message: 'What ethereum network do you want to use?',
+        type: 'list',
+        choices: ["MAINNET", "GOERLI", "KOVAN", "RINKEBY", "ROPSTEN"]
+      },
+      {
+        type: 'input',
+        name: 'api_key',
+        message: "What's your API key?",
+      }])
+      .then(function(answer){
+        API_KEY = answer.api_key;
+        switch(answer.network){
+          case "MAINNET":
+            PROVIDER_URL = PROVIDER_MAINNET + API_KEY;
+            break;
+          case "GOERLI":
+            PROVIDER_URL = PROVIDER_GOERLI + API_KEY;
+            break;
+          case "KOVAN":
+            PROVIDER_URL = PROVIDER_KOVAN + API_KEY;
+            break;
+          case "RINKEBY":
+            PROVIDER_URL = PROVIDER_RINKEBY + API_KEY;
+            break;
+          case "ROPSTEN":
+            PROVIDER_URL = PROVIDER_ROPSTEN + API_KEY;
+            break;
+        };
+        console.log(answer);
+        console.log(PROVIDER_URL);
+        cli.parse(process.argv);
+      });
+  } else { 
+    console.log("USING: " + PROVIDER_MAINNET + API_KEY);
+    cli.parse(process.argv);
+  }
