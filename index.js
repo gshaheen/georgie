@@ -3,6 +3,7 @@
 import cli from "commander";
 import inquirer from "inquirer";
 import chalk from "chalk";
+import nconf from "nconf";
 import posts from "./commands/posts.js";
 import comments from "./commands/comments.js";
 import users from "./commands/users.js";
@@ -12,13 +13,15 @@ import getBalance from "./commands/getBalance.js";
 
 // global variables
 // global.API_KEY = "t6xJw7aHQF5AymDZktnp1UdyZbUztX6A";
+nconf.use('file', { file: './config.json' });
+nconf.load();
 global.API_KEY = "";
+global.PROVIDER_URL = nconf.get('PROVIDER_URL');
 global.PROVIDER_MAINNET = "https://eth-mainnet.alchemyapi.io/v2/";
 global.PROVIDER_GOERLI = "https://eth-goerli.alchemyapi.io/v2/";
 global.PROVIDER_KOVAN = "https://eth-kovan.alchemyapi.io/v2/";
 global.PROVIDER_RINKEBY = "https://eth-rinkeby.alchemyapi.io/v2/";
 global.PROVIDER_ROPSTEN = "https://eth-ropsten.alchemyapi.io/v2/";
-global.PROVIDER_URL = "";
 
 cli.description("query ethereum");
 cli.name("georgie");
@@ -61,7 +64,7 @@ cli
 
 
 
-if (!API_KEY) {
+if (!PROVIDER_URL) {
   console.log("If you don't already have an API key, get one here: https://alchemy.com/?r=3d90611b34ed2439");
   inquirer.prompt([
     {
@@ -95,6 +98,14 @@ if (!API_KEY) {
           break;
       };
       console.log(answer);
+      nconf.set('PROVDER_URL', PROVIDER_URL);
+      nconf.save(function (err) {
+        if (err) {
+          console.error(err.message);
+          return;
+        }
+        console.log('Configuration saved successfully.');
+      });
       console.log(chalk.red("USING: " + PROVIDER_URL));
       cli.parse(process.argv);
     });
