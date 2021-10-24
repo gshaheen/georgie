@@ -3,7 +3,6 @@
 import cli from "commander";
 import inquirer from "inquirer";
 import chalk from "chalk";
-import fs from "fs";
 import nconf from "nconf";
 import posts from "./commands/posts.js";
 import comments from "./commands/comments.js";
