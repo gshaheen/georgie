@@ -3,18 +3,17 @@
 import cli from "commander";
 import inquirer from "inquirer";
 import chalk from "chalk";
+import fs from "fs";
 import nconf from "nconf";
 import posts from "./commands/posts.js";
 import comments from "./commands/comments.js";
 import users from "./commands/users.js";
+import config from "./commands/config.js";
 import getBalance from "./commands/getBalance.js";
-
-// add local storage of api key and network, add ability to change them
 
 // global variables
 // global.API_KEY = "t6xJw7aHQF5AymDZktnp1UdyZbUztX6A";
-nconf.use('file', { file: './config.json' });
-nconf.load();
+nconf.file({ file: './config.json' });
 global.API_KEY = "";
 global.PROVIDER_URL = nconf.get('PROVIDER_URL');
 global.PROVIDER_MAINNET = "https://eth-mainnet.alchemyapi.io/v2/";
@@ -52,6 +51,13 @@ cli
     "Retrieve a list of all users or one user by passing the user ID (e.g., users 1)."
   )
   .action(users);
+
+cli
+  .command("config")
+  .description(
+    "Set new API endpoint."
+  )
+  .action(config);
 
 cli
   .command("getBalance")
@@ -97,19 +103,18 @@ if (!PROVIDER_URL) {
           PROVIDER_URL = PROVIDER_ROPSTEN + API_KEY;
           break;
       };
-      console.log(answer);
-      nconf.set('PROVDER_URL', PROVIDER_URL);
-      nconf.save(function (err) {
-        if (err) {
-          console.error(err.message);
-          return;
-        }
-        console.log('Configuration saved successfully.');
-      });
+      console.log(PROVIDER_URL);
+      nconf.set('PROVIDER_URL', PROVIDER_URL.toString());
+      console.log(chalk.blue(nconf.get('PROVIDER_URL')));
+
+      nconf.save();
+
       console.log(chalk.red("USING: " + PROVIDER_URL));
+
       cli.parse(process.argv);
     });
 } else {
-  console.log("USING: " + PROVIDER_MAINNET + API_KEY);
+  console.log(chalk.blue.bold("USING: " + chalk.underline(PROVIDER_URL)));
+  console.log(chalk.blue.bold("CHANGE: georgie config"));
   cli.parse(process.argv);
 }
