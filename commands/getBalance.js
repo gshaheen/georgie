@@ -1,4 +1,6 @@
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+import { table } from "table";
+import chalk from "chalk";
 
 export default (address, options) => {
   const web3 = createAlchemyWeb3(PROVIDER_URL);
@@ -9,13 +11,14 @@ export default (address, options) => {
         
         var strData = data.toString();
         var ether = web3.utils.fromWei(strData, 'ether');
-        console.log(ether);
+        
+        const dataArray = [
+          [chalk.bold.blue('WEI'), strData],
+          [chalk.bold.blue('ETHER'), ether]
+        ];
 
-        if (options.pretty) {
-          return console.log(data);
-        }
-    
-        return console.log(JSON.stringify(data));
+        return console.log(table(dataArray));
+
       } catch (error) { 
         return console.log(error.name + ": " + error.message);
       }
