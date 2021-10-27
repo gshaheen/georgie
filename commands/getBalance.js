@@ -2,7 +2,6 @@ import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 
 export default (address, options) => {
   const web3 = createAlchemyWeb3(PROVIDER_URL);
-  //console.log(PROVIDER_URL);
 
   async function getBalance () {
       try { 

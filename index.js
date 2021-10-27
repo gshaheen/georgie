@@ -113,7 +113,7 @@ if (!PROVIDER_URL) {
       cli.parse(process.argv);
     });
 } else {
-  console.log(chalk.blue.bold("USING: " + chalk.underline(PROVIDER_URL)));
-  console.log(chalk.blue.bold("CHANGE: georgie config"));
+  console.log(chalk.blue.bold.bgWhite("   USING: " + chalk.underline(PROVIDER_URL) + " | " + "CHANGE: georgie config   "));
+
   cli.parse(process.argv);
 }
