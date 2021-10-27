@@ -4,7 +4,9 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 
 export default (options) => {
-    
+  console.log("");  
+  console.log(chalk.green("If you don't already have an API key, get one here: https://alchemy.com/?r=3d90611b34ed2439"));
+  console.log("");
     inquirer.prompt([
         {
           name: 'network',

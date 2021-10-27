@@ -70,49 +70,12 @@ cli
 
 
 if (!PROVIDER_URL) {
-  console.log("If you don't already have an API key, get one here: https://alchemy.com/?r=3d90611b34ed2439");
-  inquirer.prompt([
-    {
-      name: 'network',
-      message: 'What ethereum network do you want to use?',
-      type: 'list',
-      choices: ["MAINNET", "GOERLI", "KOVAN", "RINKEBY", "ROPSTEN"]
-    },
-    {
-      type: 'input',
-      name: 'api_key',
-      message: "What's your API key?",
-    }])
-    .then(function (answer) {
-      API_KEY = answer.api_key;
-      switch (answer.network) {
-        case "MAINNET":
-          PROVIDER_URL = PROVIDER_MAINNET + API_KEY;
-          break;
-        case "GOERLI":
-          PROVIDER_URL = PROVIDER_GOERLI + API_KEY;
-          break;
-        case "KOVAN":
-          PROVIDER_URL = PROVIDER_KOVAN + API_KEY;
-          break;
-        case "RINKEBY":
-          PROVIDER_URL = PROVIDER_RINKEBY + API_KEY;
-          break;
-        case "ROPSTEN":
-          PROVIDER_URL = PROVIDER_ROPSTEN + API_KEY;
-          break;
-      };
-      console.log(PROVIDER_URL);
-      nconf.set('PROVIDER_URL', PROVIDER_URL.toString());
-      console.log(chalk.blue(nconf.get('PROVIDER_URL')));
-
-      nconf.save();
-
-      console.log(chalk.red("USING: " + PROVIDER_URL));
-
-      cli.parse(process.argv);
-    });
+  console.log("");
+  console.log(chalk.bgRed("Configuration not detected, starting config..."));  
+  config();
+  
 } else {
+
   console.log(chalk.blue.bold.bgWhite("   USING: " + chalk.underline(PROVIDER_URL) + " | " + "CHANGE: georgie config   "));
 
   cli.parse(process.argv);
