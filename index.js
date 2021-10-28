@@ -7,6 +7,7 @@ import nconf from "nconf";
 import config from "./commands/config.js";
 import getBalance from "./commands/getBalance.js";
 import gasPrice from "./commands/gasPrice.js";
+import watch from "./commands/watch.js";
 
 // global variables
 // global.API_KEY = "t6xJw7aHQF5AymDZktnp1UdyZbUztX6A";
@@ -46,6 +47,14 @@ cli
     "Retrieve the current gas price."
   )
   .action(gasPrice);
+
+  cli
+  .command("watch")
+  .argument("[address]", "address you want to watch")
+  .description(
+    "Watch the transaction for an address, if no address, then default is latest block."
+  )
+  .action(watch);
 
 if (!PROVIDER_URL) {
   console.log("");
