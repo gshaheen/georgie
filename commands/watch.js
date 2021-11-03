@@ -8,21 +8,22 @@ export default (address, options) => {
 
   async function watch() {
     try {
+
       const data = await web3.alchemy.getAssetTransfers({
-        fromAddress: address,
-        fromBlock: 7777777,
-        maxCount: 5
+        fromAddress: address
       });
 
-      let headers = ['blocknum','hash','from','to','value','erc721token','asset','category','raw contract'];
+      let headers = ['blocknum', 'hash', 'from', 'to', 'value', 'erc721token', 'asset', 'category', 'raw contract'];
       let transactionData = [];
 
       for (let i = 0; i < data.transfers.length; i++) {
         transactionData.push(data.transfers[i]);
       };
-console.log(transactionData);
+
+      //console.log(transactionData);
+
       for (let i = 0; i < transactionData.length; i++) {
-        console.log(transactionData[i].blockNum + ' ' + transactionData[i].hash);
+        console.log(web3.utils.hexToNumberString(transactionData[i].blockNum) + ' ' + transactionData[i].hash + 'count: ' + i);
       };
 
       //return console.log(data);
@@ -70,5 +71,5 @@ console.log(transactionData);
       return console.log(error.name + ": " + error.message);
     }
   };
-  watch();
+  setInterval(watch, 2000);
 };
