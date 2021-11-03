@@ -16,6 +16,8 @@ export default (address, options) => {
       let headers = ['blocknum', 'hash', 'from', 'to', 'value', 'erc721token', 'asset', 'category', 'raw contract'];
       let transactionData = [];
 
+      console.log(data.pageKey);
+
       for (let i = 0; i < data.transfers.length; i++) {
         transactionData.push(data.transfers[i]);
       };
@@ -23,7 +25,7 @@ export default (address, options) => {
       //console.log(transactionData);
 
       for (let i = 0; i < transactionData.length; i++) {
-        console.log(web3.utils.hexToNumberString(transactionData[i].blockNum) + ' ' + transactionData[i].hash + 'count: ' + i);
+        console.log(web3.utils.hexToNumberString(transactionData[i].blockNum) + ' ' + transactionData[i].value + ' count: ' + i);
       };
 
       //return console.log(data);
@@ -71,5 +73,5 @@ export default (address, options) => {
       return console.log(error.name + ": " + error.message);
     }
   };
-  setInterval(watch, 2000);
+  setInterval(watch, 15000);
 };
