@@ -43,13 +43,6 @@ export default (address, options) => {
       };
 
       for (let i = 0; i < transactionData.length; i++) {
-        // console.log('block: ' + web3.utils.hexToNumberString(transactionData[i].blockNum) + ' ' + 
-        //             'from: ' + transactionData[i].from + ' ' +
-        //             'to: ' + transactionData[i].to + ' ' +
-        //             'value: ' + transactionData[i].value + ' ' +
-        //             'erc721token: ' + web3.utils.hexToNumberString(transactionData[i].erc721TokenId) + ' ' +
-        //             'asset: ' + transactionData[i].asset + ' ' +
-        //             'category: ' + transactionData[i].category);
         let tempArray = ['block: ' + web3.utils.hexToNumberString(transactionData[i].blockNum),
                       'from: ' + transactionData[i].from,
                       'to: ' + transactionData[i].to,
