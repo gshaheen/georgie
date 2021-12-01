@@ -1,7 +1,6 @@
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 import { table } from "table";
 import chalk from "chalk";
-import blessed from "blessed";
 
 export default (address, options) => {
   const web3 = createAlchemyWeb3(PROVIDER_URL);
@@ -13,61 +12,56 @@ export default (address, options) => {
         fromAddress: address
       });
 
-      let headers = ['blocknum', 'hash', 'from', 'to', 'value', 'erc721token', 'asset', 'category', 'raw contract'];
       let transactionData = [];
+      const txArray = [];
 
-      console.log(data.pageKey);
+      const config = {
+        border: {
+          topBody: `─`,
+          topJoin: `┬`,
+          topLeft: `┌`,
+          topRight: `┐`,
+      
+          bottomBody: `─`,
+          bottomJoin: `┴`,
+          bottomLeft: `└`,
+          bottomRight: `┘`,
+      
+          bodyLeft: `│`,
+          bodyRight: `│`,
+          bodyJoin: `│`,
+      
+          joinBody: `─`,
+          joinLeft: `├`,
+          joinRight: `┤`,
+          joinJoin: `┼`
+        }
+      };
 
       for (let i = 0; i < data.transfers.length; i++) {
         transactionData.push(data.transfers[i]);
       };
 
-      //console.log(transactionData);
-
       for (let i = 0; i < transactionData.length; i++) {
-        console.log(web3.utils.hexToNumberString(transactionData[i].blockNum) + ' ' + transactionData[i].value + ' count: ' + i);
+        // console.log('block: ' + web3.utils.hexToNumberString(transactionData[i].blockNum) + ' ' + 
+        //             'from: ' + transactionData[i].from + ' ' +
+        //             'to: ' + transactionData[i].to + ' ' +
+        //             'value: ' + transactionData[i].value + ' ' +
+        //             'erc721token: ' + web3.utils.hexToNumberString(transactionData[i].erc721TokenId) + ' ' +
+        //             'asset: ' + transactionData[i].asset + ' ' +
+        //             'category: ' + transactionData[i].category);
+        let tempArray = ['block: ' + web3.utils.hexToNumberString(transactionData[i].blockNum),
+                      'from: ' + transactionData[i].from,
+                      'to: ' + transactionData[i].to,
+                      'value: ' + transactionData[i].value,
+                      'erc721token: ' + web3.utils.hexToNumberString(transactionData[i].erc721TokenId),
+                      'asset: ' + transactionData[i].asset,
+                      'category: ' + transactionData[i].category];
+        txArray.push(tempArray);
       };
-
-      //return console.log(data);
-
-      // // Create a screen object.
-      // var screen = blessed.screen({
-      //   smartCSR: true
-      // });
-
-      // screen.title = 'ethereum activity';
-
-      // // Create a box perfectly centered horizontally and vertically.
-      // var box = blessed.box({
-      //   top: 'center',
-      //   left: 'center',
-      //   width: '100%',
-      //   height: '100%',
-      //   content: strData,
-      //   }
-      // );
-
-      // // var table = blessed.table();
-      // // table.setData([
-      // //   [ 'Animals',  'Foods'  ],
-      // //   [ 'Elephant', 'Apple'  ],
-      // //   [ 'Bird',     'Orange' ]
-      // // ]);
-
-      // // Append our box to the screen.
-      // screen.append(box);
-      // // box.append(table);
-
-      // // Quit on Escape, q, or Control-C.
-      // screen.key(['escape', 'q', 'C-c'], function (ch, key) {
-      //   return process.exit(0);
-      // });
-
-      // // Focus our element.
-      // box.focus();
-
-      // // Render the screen.
-      // screen.render();
+      
+      console.log(table(txArray, config));
+     
 
     } catch (error) {
       return console.log(error.name + ": " + error.message);
