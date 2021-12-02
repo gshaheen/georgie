@@ -1,4 +1,3 @@
-import fs from "fs";
 import nconf from "nconf";
 import inquirer from "inquirer";
 import chalk from "chalk";
