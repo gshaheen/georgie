@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import cli from "commander";
-import inquirer from "inquirer";
 import chalk from "chalk";
 import nconf from "nconf";
 import config from "./commands/config.js";
