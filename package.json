@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/gshaheen/georgie#readme",
   "dependencies": {
-    "@alch/alchemy-web3": "^1.1.8",
+    "@alch/alchemy-web3": "^0.1.18",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "inquirer": "^8.2.0",

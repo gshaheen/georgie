@@ -8,7 +8,7 @@ import getBalance from "./commands/getBalance.js";
 import gasPrice from "./commands/gasPrice.js";
 import watch from "./commands/watch.js";
 
-// global variables
+// global variablesnpm
 nconf.file({ file: './config.json' });
 global.API_KEY = "";
 global.PROVIDER_URL = nconf.get('PROVIDER_URL');
