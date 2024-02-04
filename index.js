@@ -9,7 +9,6 @@ import gasPrice from "./commands/gasPrice.js";
 import watch from "./commands/watch.js";
 
 // global variables
-// global.API_KEY = "t6xJw7aHQF5AymDZktnp1UdyZbUztX6A";
 nconf.file({ file: './config.json' });
 global.API_KEY = "";
 global.PROVIDER_URL = nconf.get('PROVIDER_URL');
@@ -40,14 +39,14 @@ cli
   )
   .action(getBalance);
 
-  cli
+cli
   .command("gasPrice")
   .description(
     "Retrieve the current gas price."
   )
   .action(gasPrice);
 
-  cli
+cli
   .command("watch")
   .argument("[address]", "address you want to watch")
   .description(
@@ -57,9 +56,9 @@ cli
 
 if (!PROVIDER_URL) {
   console.log("");
-  console.log(chalk.bgRed("Configuration not detected, starting config..."));  
+  console.log(chalk.bgRed("Configuration not detected, starting config..."));
   config();
-  
+
 } else {
 
   console.log(chalk.blueBright.bold("\nUSING: " + chalk.underline(PROVIDER_URL) + " | " + "CHANGE: georgie config\n"));
